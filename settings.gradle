@@ -1,0 +1,2 @@
+include ':f2j_custom_view'
+rootProject.name = "circle_progress"
