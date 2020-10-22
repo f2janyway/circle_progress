@@ -14,23 +14,16 @@ import kotlin.math.*
 
 class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
-    private val mouthPath = Path()
     private val progressPath = Path()
 
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
-    // Some colors for the face background, eyes and mouth.
     private var progressColor = Color.YELLOW
     private var thumbColor = Color.BLUE
-    private var mouthColor = Color.RED
     private var bgPathColor = Color.BLACK
     private var strokeWidth = 100f
     private val progressStroke = 10f
 
-    // Face border width in pixels
-    private var borderWidth = 4.0f
-
-    // View size in pixels
     private var size = 500
     private val radius: Float
         get() = size / 2 - (mPaint.strokeWidth / 2)
@@ -42,8 +35,6 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
 
     private var centerOfPathRadius = 0f
 
-    private var name: String? = "unKnown"
-
     private var isInit = true
 
 
@@ -53,10 +44,6 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
     private var newCX: Double = 0.0
     private var newCY: Double = 0.0
 
-    //    private var progressStartX  = 0.0
-//    private var progressStartY  = 0.0
-//
-//    private var progressAngle = 0.0
     private var sweepingAngle = 0f
 
     init {
@@ -83,16 +70,13 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        Log.e("CustomView0", "onDraw: ")
 
         canvas?.let {
-            drawFace(it)
-//            drawEyes(it)
-//            drawMouth(it)
+            onDrawCircle(it)
         }
     }
 
-    private fun drawFace(canvas: Canvas) {
+    private fun onDrawCircle(canvas: Canvas) {
 
         mPaint.apply {
             color = bgPathColor
@@ -217,18 +201,18 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
         newCY = centerY - (centerOfPathRadius * sin(Math.toRadians(angle)))
 
 //        progressAngle = -Math.toDegrees(atan2())
-        Log.d(
-            "CustomView0",
-            ">>  calculatePathCenterCoordinate:  ####  cos(angle):${cos(angle)}  ####"
-        )
-        Log.d(
-            "CustomView0",
-            ">>  calculatePathCenterCoordinate:  ####  sin(angle):${sin(angle)}  ####"
-        )
-        Log.d("CustomView0", ">>  calculatePathCenterCoordinate:  ####  angle:$angle  ####")
-        Log.d("CustomView0", ">>  calculatePathCenterCoordinate:  ####  newCX:$newCX  ####")
-        Log.d("CustomView0", ">>  calculatePathCenterCoordinate:  ####  newCY:$newCY  ####")
-
+//        Log.d(
+//            "CustomView0",
+//            ">>  calculatePathCenterCoordinate:  ####  cos(angle):${cos(angle)}  ####"
+//        )
+//        Log.d(
+//            "CustomView0",
+//            ">>  calculatePathCenterCoordinate:  ####  sin(angle):${sin(angle)}  ####"
+//        )
+//        Log.d("CustomView0", ">>  calculatePathCenterCoordinate:  ####  angle:$angle  ####")
+//        Log.d("CustomView0", ">>  calculatePathCenterCoordinate:  ####  newCX:$newCX  ####")
+//        Log.d("CustomView0", ">>  calculatePathCenterCoordinate:  ####  newCY:$newCY  ####")
+//
 
         invalidate()
 //        requestLayout()
@@ -240,14 +224,7 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
     override fun onTouchEvent(event: MotionEvent?): Boolean {
 
         return when (event?.action) {
-            MotionEvent.ACTION_DOWN -> {
-                Log.d("CustomView0", ">>  onTouchEvent:  ####  action_down  ####")
-                true
-            }
-            MotionEvent.ACTION_UP -> {
-                Log.d("CustomView0", ">>  onTouchEvent:  ####  action_up  ####")
-                true
-            }
+
             MotionEvent.ACTION_MOVE -> {
                 centerTouchCheck(event.x, event.y)
                 true
@@ -273,23 +250,23 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
     }
 
 
-    private fun drawEyes(canvas: Canvas) {
-        mPaint.apply {
-            style = Paint.Style.FILL
-//            color = eyesColor
-        }
-        val leftRect = RectF(size * 0.2f, size * 0.2f, size * 0.4f, size * 0.4f)
-        val rightRect = RectF(size * 0.6f, size * 0.2f, size * 0.8f, size * 0.4f)
-        canvas.apply {
-            drawOval(leftRect, mPaint)
-            drawOval(rightRect, mPaint)
-        }
-    }
+    /*this is for example*/
+//    private fun drawEyes(canvas: Canvas) {
+//        mPaint.apply {
+//            style = Paint.Style.FILL
+//        }
+//        val leftRect = RectF(size * 0.2f, size * 0.2f, size * 0.4f, size * 0.4f)
+//        val rightRect = RectF(size * 0.6f, size * 0.2f, size * 0.8f, size * 0.4f)
+//        canvas.apply {
+//            drawOval(leftRect, mPaint)
+//            drawOval(rightRect, mPaint)
+//        }
+//    }
 
 
-    private fun drawMouth(canvas: Canvas) {
-        mouthPath.reset()
-        mouthPath.moveTo(size * 0.22f, size * 0.7f)
+//    private fun drawMouth(canvas: Canvas) {
+//        mouthPath.reset()
+//        mouthPath.moveTo(size * 0.22f, size * 0.7f)
 //        when (emotion) {
 //            Emotion.HAPPY.which -> {
 //                mouthPath.quadTo(size * 0.5f, size * 0.80f, size * 0.78f, size * 0.7f)
@@ -310,7 +287,7 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
 //            style = Paint.Style.FILL
 //        }
 //        canvas.drawPath(mouthPath, mPaint)
-    }
+//    }
 }
 
 
