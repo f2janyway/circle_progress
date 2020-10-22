@@ -1,2 +1,3 @@
 include ':f2j_custom_view'
+include 'app'
 rootProject.name = "circle_progress"
