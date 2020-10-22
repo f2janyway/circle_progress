@@ -7,11 +7,6 @@
         <attr name="thumb_color" format="color"/>
         <attr name="strock_width" format="float"/>
 
-        <attr name="emotion" format="enum">
-            <enum name="sad" value="0"/>
-            <enum name="norm" value="1"/>
-            <enum name="happy" value="2"/>
-        </attr>
-        <attr name="src" format="reference"/>
+
     </declare-styleable>
 </resources>
