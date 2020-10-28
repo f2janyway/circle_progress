@@ -38,8 +38,10 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
     }
 
     private var relativPos: Float = 0f
+
     private var isInit = true
 
+    private var isMaxPos = false
     private var mWidth = 0
     private var mHegith = 0
     private var bgColor = 0
@@ -91,7 +93,13 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
 
     /** is not correct max position*/
     val percentPosition: Int
-        get() = (relativPos / mHegith * 100).toInt()
+        get() {
+            return if(isMaxPos){
+                100
+            }else{
+                (relativPos / mHegith * 100).toInt()
+            }
+        }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         return when (event?.action) {
@@ -100,9 +108,12 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
                     event.y < 0 -> {
                         0f
                     }
-                    event.y > mHegith - 100 ->
+                    event.y > mHegith - 100 ->{
+                        isMaxPos = true
                         (mHegith- 100).toFloat()
+                    }
                     else -> {
+                        isMaxPos = false
                         event.y
                     }
                 }
