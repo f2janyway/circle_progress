@@ -19,10 +19,24 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     private var progressColor = Color.YELLOW
+
     private var thumbColor = Color.BLUE
     private var bgPathColor = Color.BLACK
     private var strokeWidth = 100f
-    private val progressStroke = 10f
+    private var progressWidth = 10f
+        set(value)  {
+            field = when {
+                value < strokeWidth && value > 0 -> {
+                    value
+                }
+                value < 0 -> {
+                    10f
+                }
+                else -> {
+                    100f
+                }
+            }
+        }
 
     private var size = 500
     private val radius: Float
@@ -32,11 +46,9 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
     private val centerY: Float
         get() = (size / 2).toFloat()
 
-
     private var centerOfPathRadius = 0f
 
     private var isInit = true
-
 
     private var dY: Float = 0f
     private var dX: Float = 0f
@@ -61,7 +73,7 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
                 bgPathColor= getColor(R.styleable.CircleProgress_bg_path_color,Color.LTGRAY)
                 strokeWidth = getFloat(R.styleable.CircleProgress_strock_width,100f)
                 progressColor = getColor(R.styleable.CircleProgress_progress_color,Color.YELLOW)
-
+                progressWidth = getFloat(R.styleable.CircleProgress_progress_width,10f)
             } finally {
                 recycle()
             }
@@ -92,14 +104,14 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
                 color = thumbColor
                 style = Paint.Style.FILL
             }
-            canvas.drawCircle(centerX, centerY - centerOfPathRadius, strokeWidth / 2, mPaint)
+            canvas.drawCircle(centerX, centerY - centerOfPathRadius, this@CircleProgress.strokeWidth /2, mPaint)
             isInit = false
         } else {
 
             mPaint.apply {
                 color = progressColor
                 style = Paint.Style.STROKE
-                strokeWidth = progressStroke
+                strokeWidth = progressWidth
             }
             setProgressRectF()
             canvas.drawPath(progressPath, mPaint)
@@ -165,7 +177,7 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        Log.e("CustomView0", "onMeasure: ")
+        Log.e("CustomView0", "onMeasure: $widthMeasureSpec:$heightMeasureSpec")
         size = min(measuredHeight, measuredWidth)
 
         setMeasuredDimension(size, size)
@@ -179,7 +191,7 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
         /**
          * very important point
          * */
-        val radiusLenCondition = touchRadius > radius - strokeWidth && touchRadius < radius
+        val radiusLenCondition = touchRadius > radius - strokeWidth /*&& touchRadius < radius*/
         if (radiusLenCondition) {
             Log.d("CustomView0", ">>  centerTouchCheck:  ####  yes right area  ####")
             calculatePathCenterCoordinate(x, y)
