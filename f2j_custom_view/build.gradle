@@ -44,7 +44,7 @@ dependencies {
 }
 apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.f2janyway'
-version = '0.0.1'
+version = '0.0.3'
 
 
 repositories {
