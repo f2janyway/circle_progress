@@ -63,12 +63,9 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
         setInit(attrs)
     }
 
-
     private fun setInit(attrs: AttributeSet) {
-
         context.theme.obtainStyledAttributes(attrs, R.styleable.CircleProgress, 0, 0).apply {
             try {
-
                 thumbColor = getColor(R.styleable.CircleProgress_thumb_color,Color.YELLOW)
                 bgPathColor= getColor(R.styleable.CircleProgress_bg_path_color,Color.LTGRAY)
                 strokeWidth = getFloat(R.styleable.CircleProgress_strock_width,100f)
@@ -82,14 +79,12 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-
         canvas?.let {
             onDrawCircle(it)
         }
     }
 
     private fun onDrawCircle(canvas: Canvas) {
-
         mPaint.apply {
             color = bgPathColor
             style = Paint.Style.STROKE
@@ -99,7 +94,6 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
         centerOfPathRadius = radius
 
         if (isInit) {
-
             mPaint.apply {
                 color = thumbColor
                 style = Paint.Style.FILL

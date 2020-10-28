@@ -16,36 +16,36 @@ import androidx.core.content.res.ResourcesCompat
  * have to set width
  * */
 class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, attrs) {
+
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
-    init {
-        mPaint.isAntiAlias = true
-        setInit(attrs)
-    }
-
-    private var thumbDrawableRes: Int = R.drawable.ic_unfold_more_24px
-    private var thumbDrawable = ResourcesCompat.getDrawable(resources, thumbDrawableRes, null)
-    private var relativPos: Float = 0f
-    private var isInit = true
-
-    private var mWidth = 0
-    private var mHegith = 0
-    private var bgColor = Color.GRAY
-    private var thumbBgColor = Color.WHITE
-    private var thumbLineColor = Color.GRAY
     private fun setInit(attrs: AttributeSet) {
-
         context.theme.obtainStyledAttributes(attrs, R.styleable.VerticalSeekbar, 0, 0).apply {
             try {
-                thumbDrawableRes = getResourceId(R.styleable.VerticalSeekbar_thumb_src, thumbDrawableRes)
-                bgColor = getColor(R.styleable.VerticalSeekbar_bg_color, bgColor)
-                thumbBgColor = getColor(R.styleable.VerticalSeekbar_thumb_bg_color, thumbBgColor)
-                thumbLineColor = getColor(R.styleable.VerticalSeekbar_thumb_line_color, thumbLineColor)
+//                thumbDrawableRes = getResourceId(R.styleable.VerticalSeekbar_thumb_src, thumbDrawableRes)
+                bgColor = getColor(R.styleable.VerticalSeekbar_bg_color, Color.LTGRAY)
+                thumbBgColor = getColor(R.styleable.VerticalSeekbar_thumb_bg_color, Color.WHITE)
+                thumbLineColor = getColor(R.styleable.VerticalSeekbar_thumb_line_color, Color.GRAY)
+
             } finally {
                 recycle()
             }
         }
     }
+    init {
+        mPaint.isAntiAlias = true
+        setInit(attrs)
+    }
+
+    private var relativPos: Float = 0f
+    private var isInit = true
+
+    private var mWidth = 0
+    private var mHegith = 0
+    private var bgColor = 0
+    private var thumbBgColor = 0
+    private var thumbLineColor = 0
+
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
@@ -62,14 +62,13 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
     private fun drawBar(canvas: Canvas?) {
         mPaint.apply {
             color = bgColor
-            style = Paint.Style.FILL
+            style = Paint.Style.STROKE
             strokeWidth = mWidth.toFloat()
         }
         canvas?.drawRect(0f, 0f, mWidth.toFloat(), mHegith.toFloat(), mPaint)
     }
 
     private fun drawThumb(canvas: Canvas?, pos: Int = 0) {
-
         mPaint.apply {
             color = thumbBgColor
             style = Paint.Style.FILL
@@ -77,7 +76,7 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
         canvas?.drawRect(0f, pos.toFloat(), mWidth.toFloat(), (100 + pos).toFloat(), mPaint)
         mPaint.apply {
             color = thumbLineColor
-            style = Paint.Style.FILL
+            style = Paint.Style.STROKE
             strokeWidth = 10f
         }
 
