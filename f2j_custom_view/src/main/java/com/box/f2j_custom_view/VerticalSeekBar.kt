@@ -32,16 +32,16 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
             }
         }
     }
+
     init {
         mPaint.isAntiAlias = true
         setInit(attrs)
     }
 
-    private var relativPos: Float = 0f
+    private var relativPos: Float = 50f
 
     private var isInit = true
 
-    private var isMaxPos = false
     private var mWidth = 0
     private var mHegith = 0
     private var bgColor = 0
@@ -70,20 +70,21 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
         canvas?.drawRect(0f, 0f, mWidth.toFloat(), mHegith.toFloat(), mPaint)
     }
 
-    private fun drawThumb(canvas: Canvas?, pos: Int = 0) {
+    private fun drawThumb(canvas: Canvas?, pos: Int = 50) {
         mPaint.apply {
             color = thumbBgColor
             style = Paint.Style.FILL
         }
-        canvas?.drawRect(0f, pos.toFloat(), mWidth.toFloat(), (100 + pos).toFloat(), mPaint)
+        //rect height = 100
+        canvas?.drawRect(0f, (pos - 50).toFloat(), mWidth.toFloat(), (pos + 50).toFloat(), mPaint)
         mPaint.apply {
             color = thumbLineColor
             style = Paint.Style.STROKE
             strokeWidth = 10f
         }
 
+        canvas?.drawLine(0f, (pos - 20).toFloat(), mWidth.toFloat(), (pos - 20).toFloat(), mPaint)
         canvas?.drawLine(0f, (pos + 20).toFloat(), mWidth.toFloat(), (pos + 20).toFloat(), mPaint)
-        canvas?.drawLine(0f, (pos + 80).toFloat(), mWidth.toFloat(), (pos + 80).toFloat(), mPaint)
 //        val bitmap = thumbDrawable?.toBitmap(100, 120 ,null)
 //        Log.d("VerticalSeekbar", ">>  drawThumb:  ####  ${bitmap?.height}  ####")
 //        bitmap?.let {
@@ -91,29 +92,21 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
 //        }
     }
 
-    /** is not correct max position*/
+    /** -2 for adjustment*/
     val percentPosition: Int
-        get() {
-            return if(isMaxPos){
-                100
-            }else{
-                (relativPos / mHegith * 100).toInt()
-            }
-        }
+        get() = (relativPos / (mHegith - 100) * 100 -2).toInt()
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         return when (event?.action) {
             MotionEvent.ACTION_MOVE -> {
                 relativPos = when {
-                    event.y < 0 -> {
-                        0f
+                    event.y < 50 -> {
+                        50f
                     }
-                    event.y > mHegith - 100 ->{
-                        isMaxPos = true
-                        (mHegith- 100).toFloat()
+                    event.y > mHegith - 50 -> {
+                        (mHegith - 50).toFloat()
                     }
                     else -> {
-                        isMaxPos = false
                         event.y
                     }
                 }
