@@ -92,9 +92,10 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
 //        }
     }
 
-    /** -2 for adjustment*/
+    /** -2 for adjustment
+     * */
     val percentPosition: Int
-        get() = (relativPos / (mHegith - 100) * 100 -2).toInt()
+        get() = (relativPos / (mHegith - 100) * 100 ).toInt()
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         return when (event?.action) {
