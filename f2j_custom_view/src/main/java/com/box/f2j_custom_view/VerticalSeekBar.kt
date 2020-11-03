@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.RecyclerView
 
 
 /**
@@ -43,7 +44,7 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
     private var isInit = true
 
     private var mWidth = 0
-    private var mHegith = 0
+    var mHegith = 0
     private var bgColor = 0
     private var thumbBgColor = 0
     private var thumbLineColor = 0
@@ -57,6 +58,7 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
             isInit = false
         } else {
             //touch
+
             drawThumb(canvas, relativPos.toInt())
         }
     }
@@ -97,6 +99,26 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
     val percentPosition: Int
         get() = (relativPos / (mHegith - 100) * 100 ).toInt()
 
+    fun moveTo(percent:Float){
+        relativPos = (percent / 100  * (mHegith - 100) )+50
+        invalidate()
+    }
+    fun bindRecyclerView(recyclerview:RecyclerView){
+        recyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val offset = recyclerView.computeVerticalScrollOffset()
+                val extent = recyclerView.computeVerticalScrollExtent()
+                val range = recyclerView.computeVerticalScrollRange()
+                val percent = (offset * 100)/(range - extent)
+                this@VerticalSeekbar.moveTo(percent.toFloat())
+                Log.d("VerticalSeekbar", ">>  onScrolled:  ####  percent : ${(offset * 100)/(range - extent)}  ####")
+                Log.d("VerticalSeekbar", ">>  onScrolled:  ####  offset * -1 = ${offset}  ####")
+                Log.d("VerticalSeekbar", ">>  onScrolled:  ####  extent $extent  ####")
+                Log.d("VerticalSeekbar", ">>  onScrolled:  ####  range:$range  ####")
+            }
+        })
+    }
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         return when (event?.action) {
             MotionEvent.ACTION_MOVE -> {
