@@ -98,13 +98,14 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
     /** -2 for adjustment
      * */
     val percentPosition: Int
-        get() = (relativPos / (mHegith - 100) * 100 ).toInt()
+        get() = (relativPos / (mHegith - 100) * 100).toInt()
 
-    fun moveTo(percent:Float){
-        relativPos = (percent / 100  * (mHegith - 100) )+50
+    fun moveTo(percent: Float) {
+        relativPos = (percent / 100 * (mHegith - 100)) + 50
         invalidate()
     }
-    fun bindRecyclerView(recyclerview:RecyclerView){
+
+    fun bindRecyclerView(recyclerview: RecyclerView, doThrow: Boolean) {
         recyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -116,7 +117,8 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
                         val percent = (offset * 100) / (range - extent)
                         this@VerticalSeekbar.moveTo(percent.toFloat())
                     } else {
-                        throw Throwable("change this function after view created")
+                        if (doThrow)
+                            throw Throwable("change this function after view created")
                     }
                     Log.d(
                         "VerticalSeekbar",
@@ -129,6 +131,7 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
             }
         })
     }
+
     private var isToucingNow = false
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         return when (event?.action) {
@@ -149,7 +152,7 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
                 invalidate()
                 true
             }
-            MotionEvent.ACTION_UP->{
+            MotionEvent.ACTION_UP -> {
                 isToucingNow = false
                 true
             }
