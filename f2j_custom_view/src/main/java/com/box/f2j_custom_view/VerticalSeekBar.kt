@@ -107,21 +107,25 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
         recyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val offset = recyclerView.computeVerticalScrollOffset()
-                val extent = recyclerView.computeVerticalScrollExtent()
-                val range = recyclerView.computeVerticalScrollRange()
-                val percent = (offset * 100)/(range - extent)
-                this@VerticalSeekbar.moveTo(percent.toFloat())
-                Log.d("VerticalSeekbar", ">>  onScrolled:  ####  percent : ${(offset * 100)/(range - extent)}  ####")
-                Log.d("VerticalSeekbar", ">>  onScrolled:  ####  offset * -1 = ${offset}  ####")
-                Log.d("VerticalSeekbar", ">>  onScrolled:  ####  extent $extent  ####")
-                Log.d("VerticalSeekbar", ">>  onScrolled:  ####  range:$range  ####")
+                if(!isToucingNow){
+                    val offset = recyclerView.computeVerticalScrollOffset()
+                    val extent = recyclerView.computeVerticalScrollExtent()
+                    val range = recyclerView.computeVerticalScrollRange()
+                    val percent = (offset * 100)/(range - extent)
+                    this@VerticalSeekbar.moveTo(percent.toFloat())
+                    Log.d("VerticalSeekbar", ">>  onScrolled:  ####  percent : ${(offset * 100)/(range - extent)}  ####")
+                    Log.d("VerticalSeekbar", ">>  onScrolled:  ####  offset * -1 = ${offset}  ####")
+                    Log.d("VerticalSeekbar", ">>  onScrolled:  ####  extent $extent  ####")
+                    Log.d("VerticalSeekbar", ">>  onScrolled:  ####  range:$range  ####")
+                }
             }
         })
     }
+    private var isToucingNow = false
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         return when (event?.action) {
             MotionEvent.ACTION_MOVE -> {
+                isToucingNow = true
                 relativPos = when {
                     event.y < 50 -> {
                         50f
@@ -135,6 +139,10 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
                 }
                 Log.d("VerticalSeekbar", ">>  onTouchEvent:  ####  $percentPosition  ####")
                 invalidate()
+                true
+            }
+            MotionEvent.ACTION_UP->{
+                isToucingNow = false
                 true
             }
             else -> true
