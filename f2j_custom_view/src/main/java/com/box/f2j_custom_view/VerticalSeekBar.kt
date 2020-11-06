@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 
@@ -107,13 +108,20 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
         recyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if(!isToucingNow){
+                if (!isToucingNow) {
                     val offset = recyclerView.computeVerticalScrollOffset()
                     val extent = recyclerView.computeVerticalScrollExtent()
                     val range = recyclerView.computeVerticalScrollRange()
-                    val percent = (offset * 100)/(range - extent)
-                    this@VerticalSeekbar.moveTo(percent.toFloat())
-                    Log.d("VerticalSeekbar", ">>  onScrolled:  ####  percent : ${(offset * 100)/(range - extent)}  ####")
+                    if (range - extent > 0) {
+                        val percent = (offset * 100) / (range - extent)
+                        this@VerticalSeekbar.moveTo(percent.toFloat())
+                    } else {
+                        throw Throwable("change this function after view created")
+                    }
+                    Log.d(
+                        "VerticalSeekbar",
+                        ">>  onScrolled:  ####  percent : ${(offset * 100) / (range - extent)}  ####"
+                    )
                     Log.d("VerticalSeekbar", ">>  onScrolled:  ####  offset * -1 = ${offset}  ####")
                     Log.d("VerticalSeekbar", ">>  onScrolled:  ####  extent $extent  ####")
                     Log.d("VerticalSeekbar", ">>  onScrolled:  ####  range:$range  ####")
