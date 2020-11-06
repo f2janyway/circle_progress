@@ -120,13 +120,6 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
                         if (doThrow)
                             throw Throwable("change this function after view created")
                     }
-                    Log.d(
-                        "VerticalSeekbar",
-                        ">>  onScrolled:  ####  percent : ${(offset * 100) / (range - extent)}  ####"
-                    )
-                    Log.d("VerticalSeekbar", ">>  onScrolled:  ####  offset * -1 = ${offset}  ####")
-                    Log.d("VerticalSeekbar", ">>  onScrolled:  ####  extent $extent  ####")
-                    Log.d("VerticalSeekbar", ">>  onScrolled:  ####  range:$range  ####")
                 }
             }
         })
