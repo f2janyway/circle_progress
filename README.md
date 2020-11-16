@@ -22,9 +22,12 @@
     [attr](https://github.com/f2janyway/custom_view/blob/master/f2j_custom_view/src/main/res/values/attrs.xml)<br>
     
     
+    
   2. VerticalSeekbar<br>
     [code](https://github.com/f2janyway/custom_view/blob/master/f2j_custom_view/src/main/java/com/box/f2j_custom_view/CircleProgress.kt)<br>
     [attr](https://github.com/f2janyway/custom_view/blob/master/f2j_custom_view/src/main/res/values/attrs.xml)<br>
-      - Don't use 'thumb_src' attr not implemented
+      - Don't use 'thumb_src' attr not implemented<br>
+    
   
   
+ 
