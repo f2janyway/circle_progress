@@ -6,8 +6,6 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Toast
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 
 
@@ -26,7 +24,7 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
             try {
 //                thumbDrawableRes = getResourceId(R.styleable.VerticalSeekbar_thumb_src, thumbDrawableRes)
                 bgColor = getColor(R.styleable.VerticalSeekbar_bg_color, Color.LTGRAY)
-                thumbBgColor = getColor(R.styleable.VerticalSeekbar_thumb_bg_color, Color.WHITE)
+                thumbColor = getColor(R.styleable.CircleProgress_thumb_color, Color.WHITE)
                 thumbLineColor = getColor(R.styleable.VerticalSeekbar_thumb_line_color, Color.GRAY)
 
             } finally {
@@ -47,7 +45,7 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
     private var mWidth = 0
     var mHegith = 0
     private var bgColor = 0
-    private var thumbBgColor = 0
+    private var thumbColor = 0
     private var thumbLineColor = 0
 
 
@@ -75,7 +73,7 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
 
     private fun drawThumb(canvas: Canvas?, pos: Int = 50) {
         mPaint.apply {
-            color = thumbBgColor
+            color = thumbColor
             style = Paint.Style.FILL
         }
         //rect height = 100

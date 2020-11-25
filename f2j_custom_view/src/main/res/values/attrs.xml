@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <declare-styleable name="RealVerticalSeekbar">
+        <attr name="seekbar_thumb_color" format="color"/>
+        <attr name="seekbar_progress_line_color" format="color"/>
+        <attr name="seekbar_bg_color" format="color"/>
+        <attr name="seekbar_progress_color" format="color"/>
+        <attr name="seekbar_thumb_radius" format="float"/>
+
+    </declare-styleable>
     <declare-styleable name="VerticalSeekbar">
         <attr name="thumb_src" format="reference"/>
-        <attr name="thumb_bg_color" format="color"/>
         <attr name="thumb_line_color" format="color"/>
         <attr name="bg_color" format="color"/>
     </declare-styleable>
     <declare-styleable name="CircleProgress">
-
         <attr name="bg_path_color" format="color"/>
         <attr name="progress_color" format="color"/>
         <attr name="thumb_color" format="color"/>
         <attr name="strock_width" format="float"/>
         <attr name="progress_width" format="float"/>
     </declare-styleable>
-
-
 </resources>
