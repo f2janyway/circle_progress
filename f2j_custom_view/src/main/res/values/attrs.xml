@@ -9,10 +9,10 @@
         <attr name="seekbar_thumb_radius" format="float"/>
 
     </declare-styleable>
-    <declare-styleable name="VerticalSeekbar">
-        <attr name="thumb_src" format="reference"/>
-        <attr name="thumb_line_color" format="color"/>
-        <attr name="bg_color" format="color"/>
+    <declare-styleable name="SimpleFastScrollBar">
+        <attr name="scroll_thumb_color" format="color"/>
+        <attr name="scroll_thumb_line_color" format="color"/>
+        <attr name="scroll_bg_color" format="color"/>
     </declare-styleable>
     <declare-styleable name="CircleProgress">
         <attr name="bg_path_color" format="color"/>

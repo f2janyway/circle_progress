@@ -185,12 +185,12 @@ class CircleProgress(context: Context, attrs: AttributeSet) : View(context, attr
         /**
          * very important point
          * */
-        val radiusLenCondition = touchRadius > radius - strokeWidth /*&& touchRadius < radius*/
-        if (radiusLenCondition) {
+//        val radiusLenCondition = touchRadius > radius - strokeWidth /*&& touchRadius < radius*/
+//        if (radiusLenCondition) {
             Log.d("CustomView0", ">>  centerTouchCheck:  ####  yes right area  ####")
             calculatePathCenterCoordinate(x, y)
 
-        }
+//        }
     }
 
     private fun calculatePathCenterCoordinate(touchX: Float, touchY: Float) {

@@ -15,17 +15,17 @@ import androidx.recyclerview.widget.RecyclerView
  *
  * have to set width
  * */
-class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, attrs) {
+class SimpleFastScrollBar(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     private fun setInit(attrs: AttributeSet) {
-        context.theme.obtainStyledAttributes(attrs, R.styleable.VerticalSeekbar, 0, 0).apply {
+        context.theme.obtainStyledAttributes(attrs, R.styleable.SimpleFastScrollBar, 0, 0).apply {
             try {
 //                thumbDrawableRes = getResourceId(R.styleable.VerticalSeekbar_thumb_src, thumbDrawableRes)
-                bgColor = getColor(R.styleable.VerticalSeekbar_bg_color, Color.LTGRAY)
-                thumbColor = getColor(R.styleable.CircleProgress_thumb_color, Color.WHITE)
-                thumbLineColor = getColor(R.styleable.VerticalSeekbar_thumb_line_color, Color.GRAY)
+                bgColor = getColor(R.styleable.SimpleFastScrollBar_scroll_bg_color, Color.LTGRAY)
+                thumbColor = getColor(R.styleable.SimpleFastScrollBar_scroll_thumb_color, Color.WHITE)
+                thumbLineColor = getColor(R.styleable.SimpleFastScrollBar_scroll_thumb_line_color, Color.GRAY)
 
             } finally {
                 recycle()
@@ -113,7 +113,7 @@ class VerticalSeekbar(context: Context, attrs: AttributeSet) : View(context, att
                     val range = recyclerView.computeVerticalScrollRange()
                     if (range - extent > 0) {
                         val percent = (offset * 100) / (range - extent)
-                        this@VerticalSeekbar.moveTo(percent.toFloat())
+                        this@SimpleFastScrollBar.moveTo(percent.toFloat())
                     } else {
                         if (doThrow)
                             throw Throwable("change this function after view created")
