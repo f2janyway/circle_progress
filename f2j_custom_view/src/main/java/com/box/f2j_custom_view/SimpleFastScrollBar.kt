@@ -6,6 +6,8 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import androidx.annotation.ColorInt
+import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 
 
@@ -158,6 +160,11 @@ class SimpleFastScrollBar(context: Context, attrs: AttributeSet) : View(context,
         Log.d("VerticalSeekbar", ">>  onMeasure:  ####  $mHegith: $mWidth  ####")
 //        val min = min(mWidth,mHegith)
         setMeasuredDimension(mWidth, mHegith)
+    }
+
+    fun setThumbColor(@ColorInt color: Int){
+        thumbColor = color
+        invalidate()
     }
 
 }
