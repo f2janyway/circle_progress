@@ -24,9 +24,9 @@
  ![Alt Text](https://github.com/yegyu/android_portfolio/blob/master/gif/circle_progress.gif)
     
     
-  2. VerticalSeekbar<br>
+  2. SimpleFastScrollBar<br>
   (It can be used but not seekbar. Use RealVerticalSeekbar)
-    [code](https://github.com/f2janyway/custom_view/blob/master/f2j_custom_view/src/main/java/com/box/f2j_custom_view/VerticalSeekbar.kt)<br>
+    [code](https://github.com/f2janyway/custom_view/blob/master/f2j_custom_view/src/main/java/com/box/f2j_custom_view/SimpleFastScrollBar.kt)<br>
     [attr](https://github.com/f2janyway/custom_view/blob/master/f2j_custom_view/src/main/res/values/attrs.xml)<br>
       - Don't use 'thumb_src' attr not implemented<br>
       
